@@ -1,6 +1,7 @@
 package com.informatorio.proyectofinal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,6 +31,8 @@ public class User{
     @Column(unique = true, length = 45)
     private String username;
     @NonNull
+    @Getter(onMethod = @__( @JsonIgnore ))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String role;
     private boolean active;
@@ -49,51 +52,13 @@ public class User{
 
     public User() {
     }
-
-    @JsonIgnore
-    public String getPassword() {
-        return password;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
     public void setCity(String city) {
         this.city = capitalize(city.toLowerCase());
     }
-
-    public String getProvince() {
-        return province;
-    }
-
     public void setProvince(String province) {
         this.province = capitalize(province.toLowerCase());
     }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = capitalize(country.toLowerCase());
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public List<Emprendimiento> getEmprendimientos() {
-        return emprendimientos;
-    }
-
-    public void setEmprendimientos(List<Emprendimiento> emprendimientos) {
-        this.emprendimientos = emprendimientos;
-    }
+    public void setCountry(String country) {this.country = capitalize(country.toLowerCase());}
 
     public void addEmprendimiento(Emprendimiento emprendimiento) {
         emprendimientos.add(emprendimiento);
@@ -103,7 +68,6 @@ public class User{
         emprendimientos.remove(emprendimiento);
         emprendimiento.setCreator(null);
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

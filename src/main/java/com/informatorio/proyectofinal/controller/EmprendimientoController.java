@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/emprendimientos")
 public class EmprendimientoController {
+
     private final EmprendimientoRepository emprendimientoRepository;
     private final VoteService voteService;
+
     public EmprendimientoController(EmprendimientoRepository emprendimientoRepository, VoteService voteService) {
         this.emprendimientoRepository = emprendimientoRepository;
         this.voteService = voteService;

@@ -27,6 +27,8 @@ public class Emprendimiento {
     private List<LineaDeEmprendimientos> lineaDeEmprendimientos = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "emprendimientoId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Voto> voto = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -73,6 +75,7 @@ public class Emprendimiento {
     public String getCreator() {
         return name = creator.getUsername();
     }
+
     public void setCreator(User creator) {
         this.creator = creator;
     }
@@ -104,4 +107,15 @@ public class Emprendimiento {
         tag.getEmprendimiento().add(this);
     }
 
+    public void setLineaDeEmprendimientos(List<LineaDeEmprendimientos> lineaDeEmprendimientos) {
+        this.lineaDeEmprendimientos = lineaDeEmprendimientos;
+    }
+
+    public List<Voto> getVoto() {
+        return voto;
+    }
+
+    public void setVoto(List<Voto> voto) {
+        this.voto = voto;
+    }
 }

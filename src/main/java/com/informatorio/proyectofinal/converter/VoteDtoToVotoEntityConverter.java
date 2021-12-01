@@ -25,7 +25,7 @@ public class VoteDtoToVotoEntityConverter implements Converter<VoteDTO, Voto> {
     public Voto convert(VoteDTO voteDto){
         Voto voto = new Voto();
         voto.setUserId(voteDto.getUserId());
-        voto.setEmpresaId(voteDto.getEmprendimientoId());
+        voto.setEmprendimientoId(voteDto.getEmprendimientoId());
         voto.setDate(LocalDateTime.now());
         return voto;
     }
