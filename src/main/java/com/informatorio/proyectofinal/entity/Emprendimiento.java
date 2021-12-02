@@ -22,9 +22,6 @@ public class Emprendimiento {
     private boolean published;
     @ManyToOne(fetch = FetchType.LAZY)
     private User creator;
-    @JsonIgnore
-    @OneToMany(mappedBy = "emprendimiento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LineaDeEmprendimientos> lineaDeEmprendimientos = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
     @OneToMany(mappedBy = "emprendimientoId", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -80,20 +77,6 @@ public class Emprendimiento {
         this.creator = creator;
     }
 
-    public List<LineaDeEmprendimientos> getLineaDeEmprendimientos(){
-        return lineaDeEmprendimientos;
-    }
-
-    public void addLineaDeEmprendimiento(LineaDeEmprendimientos lineaDeEmprendimiento){
-        lineaDeEmprendimientos.add(lineaDeEmprendimiento);
-        lineaDeEmprendimiento.setEmprendimiento(this);
-    }
-
-    public void removeLineaDeEmprendimiento(LineaDeEmprendimientos lineaDeEmprendimiento){
-        lineaDeEmprendimientos.remove(lineaDeEmprendimiento);
-        lineaDeEmprendimiento.setEmprendimiento(null);
-    }
-
     public List<Tags> getTags() {
         return tags;
     }
@@ -105,10 +88,6 @@ public class Emprendimiento {
     public void agregarTag(Tags tag) {
         tags.add(tag);
         tag.getEmprendimiento().add(this);
-    }
-
-    public void setLineaDeEmprendimientos(List<LineaDeEmprendimientos> lineaDeEmprendimientos) {
-        this.lineaDeEmprendimientos = lineaDeEmprendimientos;
     }
 
     public List<Voto> getVoto() {
