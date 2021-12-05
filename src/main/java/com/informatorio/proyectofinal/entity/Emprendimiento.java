@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public class Emprendimiento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,7 +26,8 @@ public class Emprendimiento {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
     @OneToMany(mappedBy = "emprendimientoId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Voto> voto = new ArrayList<>();
+    private List<Voto> votes = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -72,15 +74,12 @@ public class Emprendimiento {
     public String getCreator() {
         return name = creator.getUsername();
     }
-
     public void setCreator(User creator) {
         this.creator = creator;
     }
-
     public List<Tags> getTags() {
         return tags;
     }
-
     public void setTags(List<Tags> tags) {
         this.tags = tags;
     }
@@ -90,11 +89,13 @@ public class Emprendimiento {
         tag.getEmprendimiento().add(this);
     }
 
-    public List<Voto> getVoto() {
-        return voto;
+    public int getVotes() {
+
+        return votes.size();
     }
 
-    public void setVoto(List<Voto> voto) {
-        this.voto = voto;
+    public void setVotes(List<Voto> votes) {
+        this.votes = votes;
     }
+
 }

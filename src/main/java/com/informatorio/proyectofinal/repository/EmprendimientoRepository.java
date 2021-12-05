@@ -14,6 +14,4 @@ public interface EmprendimientoRepository extends JpaRepository<Emprendimiento, 
     @Query("SELECT e FROM Emprendimiento e join fetch e.tags t WHERE t.name LIKE %:tag%")
     List<Emprendimiento> findByTag(@Param("tag") String tag);
     List<Emprendimiento> findByPublished(boolean published);
-
-
 }

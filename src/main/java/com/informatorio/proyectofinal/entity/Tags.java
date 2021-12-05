@@ -19,9 +19,10 @@ import java.util.Objects;
 public class Tags {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter(onMethod = @__( @JsonIgnore))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
     private String name;
-
     @ManyToMany(mappedBy = "tags")
     @Getter(onMethod = @__( @JsonIgnore))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
