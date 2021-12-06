@@ -1,14 +1,13 @@
 package com.informatorio.proyectofinal.controller;
 
 import com.informatorio.proyectofinal.dto.VoteDTO;
+import com.informatorio.proyectofinal.repository.VotoRepository;
 import com.informatorio.proyectofinal.service.VoteService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -16,8 +15,11 @@ import javax.validation.Valid;
 public class VotoController {
 
     private final VoteService voteService;
-    public VotoController(VoteService voteService) {
+    private final VotoRepository votoRepository;
+
+    public VotoController(VoteService voteService, VotoRepository votoRepository) {
         this.voteService = voteService;
+        this.votoRepository = votoRepository;
     }
 
     @PostMapping
@@ -25,4 +27,12 @@ public class VotoController {
     public ResponseEntity<?> votar(@Valid @RequestBody VoteDTO voteDTO) {
         return new ResponseEntity<>(voteService.createVote(voteDTO), HttpStatus.CREATED);
     }
+
+    @GetMapping
+    @RequestMapping("votes/{userId}")
+    public ResponseEntity<?> getVotesFromAUser(
+            @PathVariable("userId") Long userId) {
+                return new ResponseEntity<>(votoRepository.findByUserId(userId), HttpStatus.OK);
+    }
+
 }

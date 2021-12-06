@@ -26,6 +26,7 @@ public class AppUser implements UserDetails {
         return AuthorityUtils.createAuthorityList("ROLE_"+this.user.getRole());
     }
 
+
     @Override
     public String getPassword() {
         return this.user.getPassword();

@@ -4,7 +4,6 @@ import com.informatorio.proyectofinal.entity.User;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.UserRepository;
 import com.informatorio.proyectofinal.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -32,6 +31,7 @@ public class UserController {
     public User updateUser(@PathVariable Long id, @RequestBody User user){
         return this.userService.updateUser(id, user);
     }
+
     @PutMapping("{id}/remove")
     public User removeUser(@PathVariable Long id, User user){
         return this.userService.removeUser(id, user);
@@ -76,6 +76,7 @@ public class UserController {
     public ResponseEntity<?> getUserEmprendimiento(
             @PathVariable("id") Long userId) {
         User user = userRepository.getById(userId);
+
         return new ResponseEntity<>(emprendimientoRepository.findByCreatorId(user.getId()), HttpStatus.OK);
     }
 
