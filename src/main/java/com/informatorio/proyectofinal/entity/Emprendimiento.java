@@ -1,6 +1,9 @@
 package com.informatorio.proyectofinal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -25,8 +28,21 @@ public class Emprendimiento {
     private User creator;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "emprendimientoId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Voto> votes = new ArrayList<>();
+    private Integer votesCount = 0;
+    @JoinTable(
+            name = "events_emprendimientos",
+            joinColumns = {@JoinColumn(name = "fk_emprendimiento",nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "fk_event",nullable = false)}
+    )
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Event> events;
 
 
     public Long getId() {
@@ -89,6 +105,22 @@ public class Emprendimiento {
         tag.getEmprendimiento().add(this);
     }
 
+
+    public void addEvent(Event event){
+        if(this.events == null){
+            this.events = new ArrayList<>();
+        }
+        this.events.add(event);
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
     public int getVotes() {
 
         return votes.size();
@@ -98,4 +130,11 @@ public class Emprendimiento {
         this.votes = votes;
     }
 
+    public Integer getVotesCount() {
+        return votesCount;
+    }
+
+    public void setVotesCount(Integer votesCount) {
+        this.votesCount = votesCount;
+    }
 }

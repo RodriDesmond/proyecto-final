@@ -47,17 +47,17 @@ public class EventService {
         }
     }
 
-    public Event register(Long empId, Long eventId, RegisterToEventDto registerToEventDto) {
+    public Emprendimiento register(Long empId, Long eventId, RegisterToEventDto registerToEventDto) {
         Emprendimiento emprendimiento1 = emprendimientoRepository.getById(empId);
         Event event1 = eventRepository.getById(eventId);
         if(event1.getStatus() == Status.OPEN) {
-            event1.addSubsribers(emprendimiento1);
+            emprendimiento1.addEvent(event1);
             System.out.println("Se ha subscrito a este evento correctamente.");
         } else if (event1.getStatus() == Status.IN_COURSE){
             System.out.println("El tiempo de subscripcion a este evento a finalizado.");
         } else{
             System.out.println("Este evento a finalizado.");
         }
-        return eventRepository.save(event1);
+        return emprendimientoRepository.save(emprendimiento1);
     }
 }

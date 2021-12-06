@@ -6,8 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Event {
@@ -24,9 +24,10 @@ public class Event {
     @Column(name="status", nullable = false, columnDefinition = "varchar(32) default 'OPEN'")
     @Enumerated(value = EnumType.STRING)
     private Status status = Status.OPEN;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "events")
     @JsonIgnoreProperties({ "id", "description","content","created","goal","published","tags" })
-    private List<Emprendimiento> subscribers = new ArrayList<>();
+    @OrderBy("votesCount DESC")
+    private List<Emprendimiento> emprendimientos;
     private Double winnerReward;
 
     public Event() {
@@ -86,16 +87,12 @@ public class Event {
         this.status = status;
     }
 
-    public List<Emprendimiento> getSubscribers() {
-        return subscribers;
+    public List<Emprendimiento> getEmprendimientos() {
+        return emprendimientos;
     }
 
-    public void setSubscribers(List<Emprendimiento> subscribers) {
-        this.subscribers = subscribers;
-    }
-
-    public void addSubsribers(Emprendimiento emprendimiento) {
-        subscribers.add(emprendimiento);
+    public void setEmprendimientos(List<Emprendimiento> emprendimientos) {
+        this.emprendimientos = emprendimientos;
     }
 
     public Double getWinnerReward() {
