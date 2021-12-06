@@ -4,12 +4,14 @@ import com.informatorio.proyectofinal.entity.User;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.UserRepository;
 import com.informatorio.proyectofinal.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -27,8 +29,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable long id, @RequestBody User user){
+    public User updateUser(@PathVariable Long id, @RequestBody User user){
         return this.userService.updateUser(id, user);
+    }
+    @PutMapping("{id}/remove")
+    public User removeUser(@PathVariable Long id, User user){
+        return this.userService.removeUser(id, user);
     }
 
     private final UserRepository userRepository;
@@ -47,13 +53,14 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAllUsers(
             @RequestParam(name = "created", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate createdDate,
-            @RequestParam(name = "username", required = false) String username) {
+            @RequestParam(name = "username", required = false) String username,
+            @RequestParam(name = "active", required = false) boolean active){
                 if(createdDate != null){
                     return new ResponseEntity<>(userRepository.findByCreatedDateAfter(createdDate.atStartOfDay()), HttpStatus.OK);
                 } else if (Objects.nonNull(username)) {
                     return new ResponseEntity<>(userRepository.findByUsername(username), HttpStatus.OK);
                 }
-                return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+                return new ResponseEntity<>(userRepository.findByActive(true), HttpStatus.OK);
     }
 
     @PostMapping("{id}/emprendimientos")
@@ -72,5 +79,9 @@ public class UserController {
         return new ResponseEntity<>(emprendimientoRepository.findByCreatorId(user.getId()), HttpStatus.OK);
     }
 
-
+    @GetMapping("/my-user")
+    @ResponseBody
+    public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+    }
 }

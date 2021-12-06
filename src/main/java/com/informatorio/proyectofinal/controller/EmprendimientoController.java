@@ -1,8 +1,5 @@
 package com.informatorio.proyectofinal.controller;
 import com.informatorio.proyectofinal.dto.RegisterToEventDto;
-import com.informatorio.proyectofinal.dto.VoteDTO;
-import com.informatorio.proyectofinal.entity.Emprendimiento;
-import com.informatorio.proyectofinal.entity.Event;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import com.informatorio.proyectofinal.service.EventService;

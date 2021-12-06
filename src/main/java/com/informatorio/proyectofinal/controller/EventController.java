@@ -1,12 +1,8 @@
 package com.informatorio.proyectofinal.controller;
 
-import com.informatorio.proyectofinal.dto.VoteDTO;
 import com.informatorio.proyectofinal.entity.Event;
-import com.informatorio.proyectofinal.entity.User;
-import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import com.informatorio.proyectofinal.service.EventService;
-import com.informatorio.proyectofinal.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

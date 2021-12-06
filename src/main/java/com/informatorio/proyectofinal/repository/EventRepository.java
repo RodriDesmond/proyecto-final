@@ -9,4 +9,5 @@ import java.util.stream.Stream;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
+
 }

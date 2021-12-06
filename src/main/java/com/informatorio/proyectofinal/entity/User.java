@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -35,7 +36,7 @@ public class User{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String role;
-    private boolean active;
+    private boolean active = true;
     @NotBlank
     private String firstname;
     private String lastname;

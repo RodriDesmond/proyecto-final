@@ -23,9 +23,15 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User updateUser(long id, User user) {
+    public User updateUser(Long id, User user) {
         User inDB = userRepository.getById(id);
         inDB.setLastUpdated(LocalDateTime.now());
+        return userRepository.save(inDB);
+    }
+
+    public User removeUser(Long id, User user) {
+        User inDB = userRepository.getById(id);
+        inDB.setActive(false);
         return userRepository.save(inDB);
     }
 }

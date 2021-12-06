@@ -2,6 +2,7 @@ package com.informatorio.proyectofinal.controller;
 
 import com.informatorio.proyectofinal.dto.VoteDTO;
 import com.informatorio.proyectofinal.service.VoteService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
