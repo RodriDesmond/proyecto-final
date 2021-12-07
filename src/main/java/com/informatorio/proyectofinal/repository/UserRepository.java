@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByActive(boolean active);
-
     User  findByUsername(String username);
 
     List<User> findByCreatedDateAfter(LocalDateTime createdDate);

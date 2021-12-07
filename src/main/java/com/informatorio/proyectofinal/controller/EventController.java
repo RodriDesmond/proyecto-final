@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/events")
@@ -50,8 +48,7 @@ public class EventController {
 
     @GetMapping("/{id}/ranking")
     public ResponseEntity<?> getEventRanking(
-            @PathVariable Long id,
-            @RequestParam(name = "subscribers", required = false) Emprendimiento subscribers) {
+            @PathVariable Long id) {
         return new ResponseEntity<>(eventRepository.findById(id), HttpStatus.OK);
     }
 }

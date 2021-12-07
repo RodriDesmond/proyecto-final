@@ -25,7 +25,7 @@ public class Event {
     @Enumerated(value = EnumType.STRING)
     private Status status = Status.OPEN;
     @ManyToMany(mappedBy = "events")
-    @JsonIgnoreProperties({ "id", "description","content","created","goal","published","tags" })
+    @JsonIgnoreProperties({"description","content","created","goal","published","tags" })
     @OrderBy("votesCount DESC")
     private List<Emprendimiento> emprendimientos;
     private Double winnerReward;

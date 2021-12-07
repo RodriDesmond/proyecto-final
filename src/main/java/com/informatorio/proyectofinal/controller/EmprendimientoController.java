@@ -3,27 +3,23 @@ import com.informatorio.proyectofinal.dto.RegisterToEventDto;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import com.informatorio.proyectofinal.service.EventService;
-import com.informatorio.proyectofinal.service.VoteService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/emprendimientos")
 public class EmprendimientoController {
 
     private final EmprendimientoRepository emprendimientoRepository;
-    private final VoteService voteService;
     private final EventService eventService;
     private final EventRepository eventRepository;
 
-    public EmprendimientoController(EmprendimientoRepository emprendimientoRepository, VoteService voteService, EventService eventService, EventRepository eventRepository) {
+    public EmprendimientoController(EmprendimientoRepository emprendimientoRepository, EventService eventService, EventRepository eventRepository) {
         this.emprendimientoRepository = emprendimientoRepository;
         this.eventRepository = eventRepository;
-        this.voteService = voteService;
         this.eventService = eventService;
     }
 

@@ -21,10 +21,10 @@ public class UserAuthorizationService {
         if(!optional.isPresent())
             return false;
 
-        User inDB = optional.get();
+        /*User inDB = optional.get();
         LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusHours(24);
         if(inDB.getLastUpdated() != null && inDB.getLastUpdated().isAfter(twentyFourHoursAgo))
-            return false;
+            return false;*/
 
         return true;
     }

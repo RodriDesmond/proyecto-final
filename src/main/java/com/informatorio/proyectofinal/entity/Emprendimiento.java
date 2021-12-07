@@ -1,9 +1,6 @@
 package com.informatorio.proyectofinal.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -87,9 +84,11 @@ public class Emprendimiento {
     public void setPublished(boolean published) {
         this.published = published;
     }
+
     public String getCreator() {
-        return name = creator.getUsername();
+        return creator.getUsername();
     }
+
     public void setCreator(User creator) {
         this.creator = creator;
     }
