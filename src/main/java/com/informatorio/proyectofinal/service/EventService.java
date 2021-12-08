@@ -5,6 +5,7 @@ import com.informatorio.proyectofinal.dto.RegisterToEventDto;
 import com.informatorio.proyectofinal.entity.Emprendimiento;
 import com.informatorio.proyectofinal.entity.Event;
 import com.informatorio.proyectofinal.entity.Status;
+import com.informatorio.proyectofinal.entity.User;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import org.springframework.context.annotation.Configuration;
@@ -59,5 +60,11 @@ public class EventService {
             System.out.println("Este evento a finalizado.");
         }
         return emprendimientoRepository.save(emprendimiento1);
+    }
+
+    public Event removeEvent(Long id, Event event) {
+        Event inDB = eventRepository.getById(id);
+        inDB.setActive(false);
+        return eventRepository.save(inDB);
     }
 }

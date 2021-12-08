@@ -2,14 +2,15 @@ package com.informatorio.proyectofinal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
+@Where(clause = "active = true")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +30,7 @@ public class Event {
     @OrderBy("votesCount DESC")
     private List<Emprendimiento> emprendimientos;
     private Double winnerReward;
+    private  boolean active = true;
 
     public Event() {
     }
@@ -103,6 +105,12 @@ public class Event {
         this.winnerReward = winnerReward;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
 
 

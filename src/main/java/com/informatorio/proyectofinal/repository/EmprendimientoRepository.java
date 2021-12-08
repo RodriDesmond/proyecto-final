@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface EmprendimientoRepository extends JpaRepository<Emprendimiento, Long> {
+
     List<Emprendimiento> findByCreatorId(Long id);
     @Query("SELECT e FROM Emprendimiento e join fetch e.tags t WHERE t.name LIKE %:tag%")
     List<Emprendimiento> findByTag(@Param("tag") String tag);

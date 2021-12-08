@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @RestController
@@ -33,15 +32,17 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAllUsers(
-            @RequestParam(name = "created", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate createdDate,
+            @RequestParam(name = "createdDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime createdDate,
             @RequestParam(name = "username", required = false) String username,
-            @RequestParam(name = "active", required = false) boolean active){
+            @RequestParam(name = "city", required = false) String city){
                 if(createdDate != null){
-                    return new ResponseEntity<>(userRepository.findByCreatedDateAfter(createdDate.atStartOfDay()), HttpStatus.OK);
+                    return new ResponseEntity<>(userRepository.findByCreatedDateAfter(createdDate.toLocalDate().atStartOfDay()), HttpStatus.OK);
                 } else if (Objects.nonNull(username)) {
                     return new ResponseEntity<>(userRepository.findByUsername(username), HttpStatus.OK);
+                } else if (Objects.nonNull(city)){
+                    return new ResponseEntity<>(userRepository.findByCity(city), HttpStatus.OK);
                 }
-                return new ResponseEntity<>(userRepository.findAll().stream().filter(user -> user.isActive()), HttpStatus.OK);
+                return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -59,9 +60,10 @@ public class UserController {
         return this.userService.updateUser(id, user);
     }
 
-    @PutMapping("{id}/remove")
-    public User removeUser(@PathVariable Long id, User user){
-        return this.userService.removeUser(id, user);
+    @DeleteMapping("{id}/remove")
+    public void removeUser(@PathVariable Long id){
+        User user = userRepository.getById(id);
+        this.userService.removeUser(id, user);
     }
 
     @PostMapping("{id}/emprendimientos")

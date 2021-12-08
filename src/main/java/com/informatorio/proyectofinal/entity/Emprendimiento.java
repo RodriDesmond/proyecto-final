@@ -2,6 +2,7 @@ package com.informatorio.proyectofinal.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Where(clause = "active = true")
 public class Emprendimiento {
 
     @Id
@@ -21,7 +23,7 @@ public class Emprendimiento {
     private LocalDate created;
     private double goal;
     private boolean published;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private User creator;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
@@ -40,6 +42,7 @@ public class Emprendimiento {
     })
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Event> events;
+    private boolean active = true;
 
 
     public Long getId() {
@@ -135,5 +138,13 @@ public class Emprendimiento {
 
     public void setVotesCount(Integer votesCount) {
         this.votesCount = votesCount;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

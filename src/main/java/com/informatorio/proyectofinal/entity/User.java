@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ import static org.springframework.util.StringUtils.capitalize;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Where(clause = "active = true")
+@SQLDelete(sql = "UPDATE users_table SET active=false WHERE id = ?")
 @Table(name = "users_table")
 public class User{
     @Id

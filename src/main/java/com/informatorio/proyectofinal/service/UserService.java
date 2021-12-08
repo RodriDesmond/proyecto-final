@@ -54,8 +54,7 @@ public class UserService {
 
     public User removeUser(Long id, User user) {
         User inDB = userRepository.getById(id);
-
-        inDB.setActive(false);
+        userRepository.delete(inDB);
         return userRepository.save(inDB);
     }
 }
