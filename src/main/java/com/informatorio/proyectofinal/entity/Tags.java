@@ -17,10 +17,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Table(name = "emprendimientos_tags")
 public class Tags {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     @ManyToMany(mappedBy = "tags")
     @Getter(onMethod = @__( @JsonIgnore))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

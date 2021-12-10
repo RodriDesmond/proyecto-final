@@ -8,8 +8,6 @@ import com.informatorio.proyectofinal.repository.VotoRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class VoteService {
 
@@ -27,10 +25,23 @@ public class VoteService {
 
     public boolean createVote(VoteDTO voteDTO) {
         Voto voto = voteDTOVotoConverter.convert(voteDTO);
-        Emprendimiento emprendimiento = emprendimientoRepository.getById(voto.getEmprendimientoId());
-        emprendimiento.setVotesCount(emprendimiento.getVotesCount()+1);
-        emprendimientoRepository.save(emprendimiento);
-        votoRepository.save(voto);
-        return true;
+        if(!checkVote(voteDTO)){
+            assert voto != null;
+            Emprendimiento emprendimiento = emprendimientoRepository.getById(voto.getEmprendimientoId());
+            emprendimiento.setVotesCount(emprendimiento.getVotesCount()+1);
+            emprendimientoRepository.save(emprendimiento);
+            votoRepository.save(voto);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkVote(VoteDTO voteDTO){
+        Voto voto = voteDTOVotoConverter.convert(voteDTO);
+        return votoRepository.findAll().stream()
+                .anyMatch(v -> {
+                    assert voto != null;
+                    return v.getUserId().equals(voto.getUserId()) && v.getEmprendimientoId().equals(voto.getEmprendimientoId());
+                });
     }
 }

@@ -13,13 +13,8 @@ import java.time.LocalDateTime;
 @Component
 public class VoteDtoToVotoEntityConverter implements Converter<VoteDTO, Voto> {
 
-    private final EmprendimientoRepository emprendimientoRepository;
-    private final UserRepository userRepository;
-
     public VoteDtoToVotoEntityConverter(EmprendimientoRepository emprendimientoRepository,
                                         UserRepository userRepository) {
-        this.emprendimientoRepository = emprendimientoRepository;
-        this.userRepository = userRepository;
     }
 
     @Override

@@ -8,11 +8,9 @@ public class RegisterToEventDto {
     public Long getEventId() {
         return eventId;
     }
-
     public void setEventId(Long eventId) {
         this.eventId = eventId;
     }
-
     public Long getSubscriberId() {
         return subscriberId;
     }

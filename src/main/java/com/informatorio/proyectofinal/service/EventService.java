@@ -29,7 +29,6 @@ public class EventService {
     }
 
     //@Scheduled(cron = "0 6 * * * ?")
-    //@Scheduled(fixedRate = 1000)
     public void update() {
         List<Event> events = eventRepository.findAll();
         LocalDate now = LocalDate.now();

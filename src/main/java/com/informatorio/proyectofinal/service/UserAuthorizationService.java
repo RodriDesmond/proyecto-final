@@ -16,16 +16,12 @@ public class UserAuthorizationService {
     public boolean canUpdate(long loggedInUser, long userId){
         if(loggedInUser != userId)
             return false;
-
         Optional<User> optional = userRepository.findById(userId);
-        if(!optional.isPresent())
-            return false;
+        return optional.isPresent();
 
         /*User inDB = optional.get();
         LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusHours(24);
         if(inDB.getLastUpdated() != null && inDB.getLastUpdated().isAfter(twentyFourHoursAgo))
             return false;*/
-
-        return true;
     }
 }

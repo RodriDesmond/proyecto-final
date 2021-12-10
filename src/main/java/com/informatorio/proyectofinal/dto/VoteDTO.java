@@ -12,31 +12,24 @@ public class VoteDTO {
     public Long getUserId() {
         return userId;
     }
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-
     public Long getEmprendimientoId() {
         return emprendimientoId;
     }
-
     public void setEmprendimientoId(Long emprendimientoId) {
         this.emprendimientoId = emprendimientoId;
     }
-
     public LocalDateTime getDate() {
         return date;
     }
-
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
     public boolean isVoted() {
         return voted;
     }
-
     public void setVoted(boolean voted) {
         this.voted = voted;
     }

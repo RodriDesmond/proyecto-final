@@ -1,5 +1,6 @@
 package com.informatorio.proyectofinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Where;
@@ -12,24 +13,36 @@ import java.util.List;
 @Entity
 @Where(clause = "active = true")
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotBlank
     private String name;
     private String details;
+
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate created;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate registrationClosure;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate endDate;
+
     @Column(name="status", nullable = false, columnDefinition = "varchar(32) default 'OPEN'")
     @Enumerated(value = EnumType.STRING)
     private Status status = Status.OPEN;
+
     @ManyToMany(mappedBy = "events")
     @JsonIgnoreProperties({"description","content","created","goal","published","tags" })
     @OrderBy("votesCount DESC")
     private List<Emprendimiento> emprendimientos;
+
     private Double winnerReward;
+
     private  boolean active = true;
 
     public Event() {

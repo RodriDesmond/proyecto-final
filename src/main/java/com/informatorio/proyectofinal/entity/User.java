@@ -1,5 +1,6 @@
 package com.informatorio.proyectofinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -28,30 +29,41 @@ import static org.springframework.util.StringUtils.capitalize;
 @SQLDelete(sql = "UPDATE users_table SET active=false WHERE id = ?")
 @Table(name = "users_table")
 public class User{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Email(regexp="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
     @Column(unique = true, length = 45)
     private String username;
+
     @NonNull
     @Getter(onMethod = @__( @JsonIgnore ))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    private String role;
+
+    @Enumerated(value = EnumType.STRING)
+    private Roles role = Roles.USUARIO;
     private boolean active = true;
+
     @NotBlank
     private String firstname;
     private String lastname;
     private String city;
     private String province;
     private String country;
+
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime createdDate;
+
     @OneToMany(mappedBy = "creator", cascade=CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
     @ToString.Exclude
     private List<Emprendimiento> emprendimientos = new ArrayList<>();
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime lastUpdated;
 
     public User() {

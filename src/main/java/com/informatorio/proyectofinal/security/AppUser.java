@@ -10,9 +10,7 @@ import java.util.Collection;
 
 @Data
 public class AppUser implements UserDetails {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     User user;

@@ -1,15 +1,19 @@
 package com.informatorio.proyectofinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@ToString
 @Where(clause = "active = true")
 public class Emprendimiento {
 
@@ -19,31 +23,38 @@ public class Emprendimiento {
     private String name;
     private String description;
     private String content;
+
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate created;
+
     private double goal;
+
     private boolean published;
+
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private User creator;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "emprendimientoId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Voto> votes = new ArrayList<>();
     private Integer votesCount = 0;
+
     @JoinTable(
             name = "events_emprendimientos",
             joinColumns = {@JoinColumn(name = "fk_emprendimiento",nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "fk_event",nullable = false)}
     )
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.PERSIST,//When we save the Emprendimiento entity, the Event entity will also get saved
+            CascadeType.MERGE //Cascade the merge operation to all associated entities merge
     })
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Event> events;
     private boolean active = true;
-
 
     public Long getId() {
         return id;
@@ -106,7 +117,6 @@ public class Emprendimiento {
         tags.add(tag);
         tag.getEmprendimiento().add(this);
     }
-
 
     public void addEvent(Event event){
         if(this.events == null){
