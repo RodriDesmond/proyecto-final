@@ -36,7 +36,7 @@ public class UserController {
             @RequestParam(name = "username", required = false) String username,
             @RequestParam(name = "city", required = false) String city){
                 if(createdDate != null){
-                    return new ResponseEntity<>(userRepository.findByCreatedDateAfter(createdDate.toLocalDate().atStartOfDay()), HttpStatus.OK);
+                    return new ResponseEntity<>(userRepository.findByCreatedDateAfter(createdDate), HttpStatus.OK);
                 } else if (Objects.nonNull(username)) {
                     return new ResponseEntity<>(userRepository.findByUsername(username), HttpStatus.OK);
                 } else if (Objects.nonNull(city)){
@@ -46,12 +46,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user){
+    public User createUser(@Valid @RequestBody User user){
         return this.userService.save(user);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getUser(@PathVariable long id) {
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userRepository.findById(id),HttpStatus.OK);
     }
 
@@ -87,4 +87,6 @@ public class UserController {
     public String currentUserName(Authentication authentication) {
         return authentication.getPrincipal().toString();
     }
+
+
 }
