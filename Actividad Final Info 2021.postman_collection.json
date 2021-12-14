@@ -63,7 +63,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users?city=",
+							"raw": "http://localhost:8080/users?city=Resistencia",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -75,7 +75,7 @@
 							"query": [
 								{
 									"key": "city",
-									"value": ""
+									"value": "Resistencia"
 								}
 							]
 						}
@@ -150,7 +150,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"username\": \"ambar1@gmail.com\",\r\n        \"password\":\"password1\",\r\n        \"firstname\": \"Ambar\",\r\n        \"lastname\": \"Denisse\",\r\n        \"city\": \"La Escondida\",\r\n        \"province\": \"Chaco\",\r\n        \"country\": \"Argentina\"\r\n    }",
+							"raw": "{\r\n        \"username\": \"hsimpson@gmail.com\",\r\n        \"password\":\"password\",\r\n        \"firstname\": \"Homero\",\r\n        \"lastname\": \"Simpson\",\r\n        \"city\": \"Saenz Peña\",\r\n        \"province\": \"Chaco\",\r\n        \"country\": \"Argentina\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -683,6 +683,51 @@
 								"events",
 								"3",
 								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Evento",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "johnsmith@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"registrationClosure\": \"2022/12/20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/events/3/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"3",
+								""
 							]
 						}
 					},

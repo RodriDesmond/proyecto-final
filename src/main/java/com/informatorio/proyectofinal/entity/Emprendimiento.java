@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +32,14 @@ public class Emprendimiento {
     private boolean published;
 
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User creator;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tags> tags = new ArrayList<>();
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "emprendimientoId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Voto> votes = new ArrayList<>();
     private Integer votesCount = 0;
 
@@ -53,6 +54,7 @@ public class Emprendimiento {
     })
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Exclude
     private List<Event> events;
     private boolean active = true;
 

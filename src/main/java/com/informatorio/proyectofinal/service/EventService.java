@@ -10,9 +10,9 @@ import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,6 +38,29 @@ public class EventService {
         System.out.println("Updated event statuses.");
     }
 
+    public Event updateEvent(Long id, Event event) {
+        Event inDB = eventRepository.getById(id);
+        if (event.getName() != null) {
+            inDB.setName(event.getName());
+        }
+        if (event.getDetails() != null) {
+            inDB.setDetails(event.getDetails());
+        }
+        if (event.getWinnerReward() != null) {
+            inDB.setWinnerReward(event.getWinnerReward());
+        }
+        if (event.getEndDate() != null) {
+            inDB.setEndDate(event.getEndDate());
+        }
+        if (event.getStatus() != null) {
+            inDB.setStatus(event.getStatus());
+        }
+        if (event.getRegistrationClosure() != null) {
+            inDB.setRegistrationClosure(event.getRegistrationClosure());
+        }
+        return eventRepository.save(inDB);
+    }
+
     private void actualizarStatus(Event event, LocalDate now) {
         if (event.getRegistrationClosure().isBefore(now)) {
             event.setStatus(Status.IN_COURSE);
@@ -45,6 +68,7 @@ public class EventService {
         if (event.getEndDate().isBefore(now)) {
             event.setStatus(Status.FINALIZED);
         }
+
     }
 
     public Emprendimiento register(Long empId, Long eventId, RegisterToEventDto registerToEventDto) {

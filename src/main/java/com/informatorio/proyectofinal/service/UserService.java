@@ -5,8 +5,6 @@ import com.informatorio.proyectofinal.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -45,6 +43,7 @@ public class UserService {
         inDB.setLastUpdated(LocalDateTime.now());
         return userRepository.save(inDB);
     }
+
     public void removeUser(Long id, User user) {
         User inDB = userRepository.getById(id);
         userRepository.delete(inDB);

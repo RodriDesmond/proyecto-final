@@ -1,7 +1,6 @@
 package com.informatorio.proyectofinal.converter;
 
 import com.informatorio.proyectofinal.dto.VoteDTO;
-import com.informatorio.proyectofinal.entity.Emprendimiento;
 import com.informatorio.proyectofinal.entity.Voto;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.UserRepository;
