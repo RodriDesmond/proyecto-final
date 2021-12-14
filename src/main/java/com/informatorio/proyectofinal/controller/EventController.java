@@ -1,6 +1,7 @@
 package com.informatorio.proyectofinal.controller;
 
 import com.informatorio.proyectofinal.entity.Event;
+import com.informatorio.proyectofinal.entity.User;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import com.informatorio.proyectofinal.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,10 @@ public class EventController {
         return this.eventService.updateEvent(id, event);
     }
 
-    @PutMapping("{id}/remove")
-    public Event removeEvent(@PathVariable Long id, Event event){
-        return this.eventService.removeEvent(id, event);
+    @DeleteMapping("{id}")
+    public void removeEvent(@PathVariable Long id){
+        Event event = eventRepository.getById(id);
+        eventService.removeEvent(id, event);
     }
 
     @PostMapping

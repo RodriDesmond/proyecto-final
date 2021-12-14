@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.domain.Sort;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @ToString
 @Where(clause = "active = true")
+@SQLDelete(sql = "UPDATE emprendimiento SET active=false WHERE id = ?")
 public class Emprendimiento {
 
     @Id

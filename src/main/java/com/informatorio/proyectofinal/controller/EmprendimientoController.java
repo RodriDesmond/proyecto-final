@@ -3,6 +3,7 @@ package com.informatorio.proyectofinal.controller;
 import com.informatorio.proyectofinal.dto.EmprendimientoDto;
 import com.informatorio.proyectofinal.dto.RegisterToEventDto;
 import com.informatorio.proyectofinal.entity.Emprendimiento;
+import com.informatorio.proyectofinal.entity.Event;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
 import com.informatorio.proyectofinal.repository.EventRepository;
 import com.informatorio.proyectofinal.service.EmprendimientoService;
@@ -57,9 +58,10 @@ public class EmprendimientoController {
         return this.emprendimientoService.updateEmprendimiento(id, emprendimientoDto);
     }
 
-    @PutMapping("{id}/remove")
-    public Emprendimiento removeEmprendimiento(@PathVariable Long id, Emprendimiento emprendimiento){
-        return this.removeEmprendimiento(id, emprendimiento);
+    @DeleteMapping("{id}")
+    public void removeEmprendimiento(@PathVariable Long id){
+        Emprendimiento emprendimiento = emprendimientoRepository.getById(id);
+        emprendimientoService.removeEmprendimiento(id, emprendimiento);
     }
 
     @PostMapping("{empId}/events/{eventId}")

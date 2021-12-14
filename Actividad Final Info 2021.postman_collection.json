@@ -434,9 +434,61 @@
 					"response": []
 				},
 				{
+					"name": "Modificar emprendimiento",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "fangio@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sustentapp\",\r\n    \"description\": \"Aplicacion multiplataforma\",\r\n    \"content\": \"Desarrollo de un app multiplataforma que permite difundir accciones para el cuidado del ambiente.\",\r\n    \"goal\": 7000000,\r\n    \"published\": true,\r\n    \"tags\": [\r\n        {\r\n            \"name\": \"residuos\"\r\n        },\r\n        {\r\n            \"name\": \"tecnologia\"\r\n        },\r\n        {\r\n            \"name\": \"desarrollo\"\r\n        },\r\n        {\r\n            \"name\": \"sustentabilidad\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/4/emprendimientos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"4",
+								"emprendimientos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Dar de baja emprendimiento",
 					"request": {
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -454,7 +506,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/emprendimientos/1/remove",
+							"raw": "http://localhost:8080/emprendimientos/9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -462,8 +514,7 @@
 							"port": "8080",
 							"path": [
 								"emprendimientos",
-								"1",
-								"remove"
+								"9"
 							]
 						}
 					},
@@ -661,7 +712,7 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -673,7 +724,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/events/3/remove",
+							"raw": "http://localhost:8080/events/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -681,8 +732,7 @@
 							"port": "8080",
 							"path": [
 								"events",
-								"3",
-								"remove"
+								"10"
 							]
 						}
 					},
@@ -766,7 +816,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"emprendimientoId\": \"5\",\"userId\": \"5\"}",
+							"raw": "{\"emprendimientoId\": \"1\",\"userId\": \"5\"}",
 							"options": {
 								"raw": {
 									"language": "json"
