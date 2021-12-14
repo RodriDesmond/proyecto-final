@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Where;
+import org.springframework.data.domain.Sort;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -108,9 +109,11 @@ public class Emprendimiento {
     public void setCreator(User creator) {
         this.creator = creator;
     }
+
     public List<Tags> getTags() {
         return tags;
     }
+
     public void setTags(List<Tags> tags) {
         this.tags = tags;
     }
@@ -118,6 +121,11 @@ public class Emprendimiento {
     public void agregarTag(Tags tag) {
         tags.add(tag);
         tag.getEmprendimiento().add(this);
+    }
+
+    public void removerTag(Tags tag) {
+        tags.remove(tag);
+        tag.getEmprendimiento().remove(null);
     }
 
     public void addEvent(Event event){

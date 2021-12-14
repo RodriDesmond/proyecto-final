@@ -1,5 +1,6 @@
 package com.informatorio.proyectofinal.controller;
 
+import com.informatorio.proyectofinal.dto.EmprendimientoDto;
 import com.informatorio.proyectofinal.dto.RegisterToEventDto;
 import com.informatorio.proyectofinal.entity.Emprendimiento;
 import com.informatorio.proyectofinal.repository.EmprendimientoRepository;
@@ -49,6 +50,11 @@ public class EmprendimientoController {
         return new ResponseEntity<>(emprendimientoRepository.findById(id)
                 .stream()
                 .filter(Emprendimiento::isActive), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public Emprendimiento updateEmprendimiento(@PathVariable Long id, @RequestBody EmprendimientoDto emprendimientoDto){
+        return this.emprendimientoService.updateEmprendimiento(id, emprendimientoDto);
     }
 
     @PutMapping("{id}/remove")

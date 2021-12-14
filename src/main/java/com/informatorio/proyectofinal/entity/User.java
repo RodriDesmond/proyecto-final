@@ -58,8 +58,8 @@ public class User{
     private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "creator", cascade=CascadeType.ALL,orphanRemoval = true)
-    @JsonIgnore
     @ToString.Exclude
+    @JsonIgnore
     private List<Emprendimiento> emprendimientos = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy/MM/dd")

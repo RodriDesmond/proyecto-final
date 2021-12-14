@@ -62,7 +62,7 @@ public class UserController {
         return this.userService.updateUser(id, user);
     }
 
-    @DeleteMapping("{id}/remove")
+    @DeleteMapping("{id}")
     public void removeUser(@PathVariable Long id){
         User user = userRepository.getById(id);
         this.userService.removeUser(id, user);
